@@ -13,7 +13,7 @@ block content
         - directors.sort(function(a, b) {let textA = a.family_name.toUpperCase(); let textB = b.family_name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
         for director in directors
           if movie
-            option(value=director._id selected=(director._id.toString()===director.author._id.toString() ? 'selected' : false) ) #{director.name}
+            option(value=director._id selected=(director._id.toString()===movie.director._id.toString() ? 'selected' : false) ) #{director.name}
           else
             option(value=director._id) #{director.name}
     div.form-group
@@ -27,8 +27,11 @@ block content
             input.checkbox-input(type='checkbox', name='genre', id=genre._id, value=genre._id, checked=genre.checked )
             label(for=genre._id) #{genre.name}
     div.form-group 
-      label(for="img") Upload an Image URL: 
+      label(for="img") Enter an Image URL: 
       input#img.form-control(type="text", name="img", required="true")
+    div.form-group
+      label(for="img") Rating(1 to 10):
+      input#img.form-control(type="text" name="img", required="true")
     button.btn.btn-primary(type='submit') Submit
 
   if errors

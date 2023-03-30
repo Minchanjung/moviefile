@@ -9,35 +9,10 @@ const async = require("async");
 
 
 //display homepage
-/*exports.index = (req, res) => {
-    async.parallel(
-        {
-            movie_count(cb) {
-                Movie.countDocuments({}, cb);
-            }, 
-            director_count(cb) {
-                Director.countDocuments({}, cb);
-            }, 
-            genre_count(cb) {
-                Genre.countDocuments({}, cb);
-            }, 
-            img_count(cb) {
-                Img.countDocuments({}, cb);
-            },
-        }, 
-        (err, results) => {
-            res.render("index", {
-                title: "Rate a movie", 
-                error: err, 
-                data: results, 
-            });
-        }
-    )
-}*/
 
 exports.index = async (req, res, next) => {
     try {
-        const result = await Promise.all([Movie.countDocuments({}), Director.countDocuments({}), Genre.countDocuments({}), Img.countDocuments({})]);
+        const result = await Promise.all([Movie.countDocuments({}), Director.countDocuments({}), Genre.countDocuments({})]);
         console.log(result);
         res.render("index", {title: "Rate a Movie", data: result})
     } catch (error) {
@@ -51,7 +26,6 @@ exports.movie_list = async (req, res, next) => {
     try {
         const request = await Movie.find({}, "title img")
             .sort({ title: 1 }) 
-            .populate("img") 
             .populate("director")
             .exec()
 
@@ -68,7 +42,6 @@ exports.movie_detail = async (req, res, next) => {
     try {
         const result = await Movie.findById(req.params.id)
             .populate("director")
-            .populate("img")
             .populate("genre")
             .exec();
 
@@ -107,7 +80,7 @@ exports.movie_create_post = [
         .trim()
         .isLength({ min: 1 })
         .escape(),
-    body("author", "Author must not be empty.")
+    body("director", " Director must not be empty.")
         .trim()
         .isLength({ min: 1 })
         .escape(),
@@ -120,16 +93,20 @@ exports.movie_create_post = [
         .isLength({ min: 1 })
         .escape(), 
     body("genre.*").escape(), 
+    body("rating", "The rating must be a number between 1 and 10")
+        .trim()
+        .escape(), 
 
     async (req, res, next) => {
         const errors = validationResult(req);
 
         const movie = new Movie({
             title: req.body.title, 
-            author: req.body.author, 
+            director: req.body.director, 
             summary: req.body.summary, 
             img: req.body.img,
             genre: req.body.genre,
+            rating: req.body.rating
         })
 
         if (!errors.isEmpty()) {
@@ -141,10 +118,6 @@ exports.movie_create_post = [
                         genre.checked == "true";
                     }
                 }
-
-                console.log(movie)
-                console.log(`directors = ${request[0]}`);
-                console.log(`genres = ${request[1]}`)
 
                 res.render("movie_form", {
                     title: "Create Book", 

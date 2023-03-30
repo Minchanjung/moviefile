@@ -10,12 +10,10 @@ console.log(
   const Movie = require("./models/Movie");
   const Director = require("./models/Director");
   const Genre = require("./models/Genre");
-  const ImgUrl = require("./models/ImgUrl");
   
   const genres = [];
   const directors = [];
   const movies = [];
-  const imgurls = [];
   
   const mongoose = require("mongoose");
   mongoose.set("strictQuery", false); // Prepare for Mongoose 7
@@ -29,8 +27,6 @@ console.log(
     await mongoose.connect(mongoDB);
     console.log("Debug: Should be connected?");
     await createGenres();
-    await createImgUrls()
-    console.log(imgurls)
     await createDirectors();
     await createMovies();
     console.log("Debug: Closing mongoose");
@@ -61,10 +57,10 @@ console.log(
       title: title,
       summary: summary,
       director: director,
-      rating: rating
+      rating: rating, 
+      img: img
     };
     if (genre != false) moviedetail.genre = genre;
-    if (img != false) moviedetail.img = img;
   
     const movie = new Movie(moviedetail);
     await movie.save();
@@ -72,14 +68,6 @@ console.log(
     console.log(`Added movie: ${title}`);
   }
 
-  async function imgUrlCreate(img) {
-    const newImgUrl = new ImgUrl({imgUrl: img,});
-
-    await newImgUrl.save();
-    imgurls.push(newImgUrl);
-    console.log(`added url: ${img}`)
-  }
-  
   async function createGenres() {
     console.log("Adding genres");
     await Promise.all([
@@ -98,14 +86,6 @@ console.log(
     ]);
   }
 
-  async function createImgUrls() {
-    console.log("adding Imgs");
-    await Promise.all([
-        imgUrlCreate("https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg"), 
-        imgUrlCreate("https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2ItYzViMjE3YzI5MjljXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg")
-    ])
-  }    
-  
   async function createMovies() {
     console.log("Adding Movies");
     await Promise.all([
@@ -113,7 +93,7 @@ console.log(
         "Pulp Fiction",
         "In the realm of underworld, a series of incidents intertwines the lives of two Los Angeles mobsters, a gangster's wife, a boxer and two small-time criminals.",
         directors[1],
-        imgurls[1], 
+        "https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2ItYzViMjE3YzI5MjljXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg", 
         [genres[2]],
         9
       ),
@@ -121,7 +101,7 @@ console.log(
         "The Dark Knight",
         "After Gordon, Dent and Batman begin an assault on Gotham's organised crime, the mobs hire the Joker, a psychopathic criminal mastermind who offers to kill Batman and bring the city to its knees.",
         directors[0],
-        imgurls[0],
+        "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg",
         [genres[2]],
         10
       ),

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+/*const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
@@ -10,4 +10,4 @@ ImgUrlSchema.virtual("url").get(function () {
     return `/catalog/movie/img/${_id}`
 })
 
-module.exports = mongoose.model("ImgUrl", ImgUrlSchema);
+module.exports = mongoose.model("ImgUrl", ImgUrlSchema);*/

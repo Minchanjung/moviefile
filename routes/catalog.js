@@ -60,7 +60,7 @@ router.get("/genres", genre_controller.genre_list);
 
 //imgurl root
 
-router.get("/img/:id", img_controller.imgurl_get_post);
+/*router.get("/img/:id", img_controller.imgurl_get_post);
 
 router.get("/img/create", img_controller.imgurl_add_get);
 
@@ -68,6 +68,6 @@ router.post("/img/create", img_controller.imgurl_add_post);
 
 router.get("/img/:id/delete", img_controller.imgurl_delete_get);
 
-router.post("/img/:id/delete", img_controller.imgurl_delete_post);
+router.post("/img/:id/delete", img_controller.imgurl_delete_post);*/
 
 module.exports = router;
