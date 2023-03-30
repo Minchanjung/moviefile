@@ -1,0 +1,13 @@
+extends layout
+
+block content
+
+  h1#homepageHeader My Rated Movies 
+
+  if error 
+    p You have Rated the following movies: 
+
+  ul 
+    li #[strong Movies:] !{data[0]}
+    li #[strong Directors:] !{data[1]}
+    li #[strong Genres:] !{data[2]}

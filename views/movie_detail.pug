@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1 Title: #{movie.title}
+
+  p #[strong Director: ]
+    a(href=movie.director.url) #{movie.director.name}
+  p #[strong Summary: ] #{movie.summary}
+  p #[strong Genre:]
+    each val, index in movie.genre
+      a(href=val.url) #{val.name}
+      if index < movie.genre.length - 1
+        |,
+
+  img(src=movie.img.imgUrl)
+
+  div(style='margin-left:20px;margin-top:20px')

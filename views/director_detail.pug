@@ -1,0 +1,19 @@
+extends layout
+
+block content
+
+  h1 Director: #{data[0].name}
+  p #{data[0].date_of_birth} - #{data[0].date_of_death}
+
+  div(style='margin-left:20px;margin-top:20px')
+
+    h4 Movies: 
+
+    dl
+      each movie in data[1]
+        dt
+          a(href=movie.url) #{movie.title}
+        dd #{movie.summary}
+
+      else
+        p This author has no Movies.
