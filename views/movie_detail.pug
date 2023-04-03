@@ -1,17 +1,18 @@
 extends layout
 
 block content
-  h1 Title: #{movie.title}
+    div(class="movieDetailContainer")
+        div(class="movieDetailLeft")
+            h1 #{movie.title}
 
-  p #[strong Director: ]
-    a(href=movie.director.url) #{movie.director.name}
-  p #[strong Summary: ] #{movie.summary}
-  p #[strong Genre:]
-    each val, index in movie.genre
-      a(href=val.url) #{val.name}
-      if index < movie.genre.length - 1
-        |,
+            p #[strong Director: ]
+                a(href=movie.director.url) #{movie.director.name}
+            p #[strong Summary: ] #{movie.summary}
+            p #[strong Rating: ] #{movie.rating}
+            p #[strong Genre: ]
+                each val, index in movie.genre
+                    a(href=val.url) #{val.name}
+                    if index < movie.genre.length - 1
+                        |,
 
-  img(src=movie.img)
-
-  div(style='margin-left:20px;margin-top:20px')
+        img(src=movie.img, class="movieDetailImg")

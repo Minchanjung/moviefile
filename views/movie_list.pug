@@ -3,12 +3,12 @@ extends layout
 block content 
     h1= title 
 
-    ul 
+    ul(class="movieListGrid") 
         each movie in movie_list 
             li 
                 a(href=movie.url) 
-                    img(src=`${movie.img}`)
-                    div #{movie.title} by #{movie.director.name}
+                    img(src=`${movie.img}`, class="movieListImg")
+                    div(class="movieListCaption") #{movie.title} by #{movie.director.name}
         
         else 
             li There are no movies.

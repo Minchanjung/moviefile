@@ -7,7 +7,7 @@ block content
     each director in director_list
       li
         a(href=director.url) #{director.name}
-        |  (#{director.date_of_birth} - #{director.date_of_death})
+        |  (#{director.birth_date_formatted} - #{director.death_date_formatted})
 
     else
       li There are no directors

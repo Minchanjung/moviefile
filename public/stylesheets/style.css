@@ -1,8 +1,58 @@
 body {
-  padding: 50px;
+  padding: 40px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: flex;
+  justify-content: center;
 }
 
-a {
-  color: #00B7FF;
+ul {
+  list-style-type: none;
+}
+
+/* sidebar styling */
+#header {
+  margin-bottom: 3rem;
+}
+
+#sidebarContainer {
+  background-color: ghostwhite
+}
+
+.sidebar-li {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.sidebar-li a {
+  text-decoration: none;
+  color: black
+}
+
+/*movie list page*/
+.movieListGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  padding: 40px;
+}
+
+.movieListImg {
+  height: 300px;
+  object-fit: cover
+}
+
+.movieListCaption {
+  color: black;
+  text-align: center;
+}
+
+/*movie detail page*/
+.movieDetailContainer {
+  display: flex;
+}
+
+.movieDetailImg {
+  max-width: 300px
 }

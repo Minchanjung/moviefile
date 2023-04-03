@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { DateTime } = require("luxon");
 
 const Schema = mongoose.Schema;
 
@@ -22,6 +23,14 @@ DirectorSchema.virtual("name").get(function () {
 
 DirectorSchema.virtual("url").get(function () {
     return `/catalog/director/${this._id}`;
+});
+
+DirectorSchema.virtual("birth_date_formatted").get(function () {
+  return DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED)
+});
+
+DirectorSchema.virtual("death_date_formatted").get(function () {
+  return DateTime.fromJSDate(this.date_of_death).toLocaleString(DateTime.DATE_MED)
 });
 
 module.exports = mongoose.model("Director", DirectorSchema);
